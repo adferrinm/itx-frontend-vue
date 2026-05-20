@@ -1,4 +1,8 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useCartStore } from '../../features/cart/store/cartStore'
+
+const cartStore = useCartStore()
+</script>
 
 <template>
   <header class="flex items-center justify-between px-6 py-4 border-b border-gray-200">
@@ -8,6 +12,8 @@
         <slot name="breadcrumb" />
       </nav>
     </div>
-    <div class="text-sm font-medium">Cart: <span class="ml-1">0</span></div>
+    <div class="text-sm font-medium">
+      Cart: <span class="ml-1">{{ cartStore.count }}</span>
+    </div>
   </header>
 </template>
