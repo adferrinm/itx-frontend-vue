@@ -32,12 +32,13 @@ async function onAddToCart(): Promise<void> {
   isAdding.value = true
   addError.value = null
   try {
-    const { count } = await addToCart({
+    await addToCart({
       id: props.product.id,
       colorCode: selectedColorCode.value!,
       storageCode: selectedStorageCode.value!,
     })
-    cartStore.setCount(count)
+    // The mock API always returns count: 1 (stateless server) — increment locally on success
+    cartStore.setCount(cartStore.count + 1)
   } catch (e) {
     addError.value = e instanceof Error ? e.message : 'Failed to add to cart'
   } finally {
