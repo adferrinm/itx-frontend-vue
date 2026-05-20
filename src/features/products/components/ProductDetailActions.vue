@@ -54,6 +54,7 @@ async function onAddToCart(): Promise<void> {
         <button
           v-for="color in product.options.colors"
           :key="color.code"
+          :aria-pressed="selectedColorCode === color.code"
           class="rounded-lg border px-3 py-1 text-sm transition-colors"
           :class="
             selectedColorCode === color.code
@@ -73,6 +74,7 @@ async function onAddToCart(): Promise<void> {
         <button
           v-for="storage in product.options.storages"
           :key="storage.code"
+          :aria-pressed="selectedStorageCode === storage.code"
           class="rounded-lg border px-3 py-1 text-sm transition-colors"
           :class="
             selectedStorageCode === storage.code

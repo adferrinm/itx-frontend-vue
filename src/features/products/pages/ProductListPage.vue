@@ -27,7 +27,14 @@ function onProductSelect(product: ProductSummary): void {
       </div>
       <p v-if="isLoading" class="text-center text-gray-500">Loading products...</p>
       <p v-else-if="error" class="text-center text-red-500">{{ error }}</p>
-      <ProductGrid v-else :products="filteredProducts" @select="onProductSelect" />
+      <template v-else>
+        <ProductGrid
+          v-if="filteredProducts.length"
+          :products="filteredProducts"
+          @select="onProductSelect"
+        />
+        <p v-else class="text-center text-gray-500">No products match your search.</p>
+      </template>
     </div>
   </AppLayout>
 </template>
