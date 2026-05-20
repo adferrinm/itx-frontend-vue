@@ -3,6 +3,7 @@ import { ref, computed, watch } from 'vue'
 import type { ProductDetail } from '../types/Product'
 import { addToCart } from '../../cart/api/cartApi'
 import { useCartStore } from '../../cart/store/cartStore'
+import { colorHex } from '../utils/colorUtils'
 
 const props = defineProps<{ product: ProductDetail }>()
 
@@ -13,31 +14,6 @@ const selectedStorageCode = ref<number | null>(null)
 const isAdding = ref(false)
 const addError = ref<string | null>(null)
 const added = ref(false)
-
-const COLOR_HEX: Record<string, string> = {
-  Black: '#0a0a0a',
-  White: '#f5f5f4',
-  Silver: '#d8d6d2',
-  Gold: '#c8a96e',
-  'Rose Gold': '#e8bfb0',
-  Red: '#c0392b',
-  Blue: '#2a3a6b',
-  Green: '#3a6b4a',
-  Yellow: '#e8c84a',
-  Purple: '#6a4a8a',
-  Pink: '#e8a0b0',
-  Orange: '#e87a30',
-  Graphite: '#3b3a36',
-  Champagne: '#e6d2b3',
-  Midnight: '#1a1d2b',
-  Starlight: '#ece5d6',
-  Coral: '#e07b6a',
-  Cyan: '#4ab8c8',
-}
-
-function colorHex(name: string): string {
-  return COLOR_HEX[name] ?? '#cccccc'
-}
 
 // Pre-select when only one option — exercise requirement
 watch(
