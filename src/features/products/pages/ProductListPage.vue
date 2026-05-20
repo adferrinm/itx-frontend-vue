@@ -21,6 +21,10 @@ function onProductSelect(product: ProductSummary): void {
 
 <template>
   <AppLayout>
+    <template #search>
+      <ProductSearchBar v-model="query" />
+    </template>
+
     <section class="max-w-[1240px] mx-auto px-5 sm:px-8 pt-8 sm:pt-12 pb-16">
       <div class="flex items-end justify-between flex-wrap gap-4 mb-8 sm:mb-10">
         <div>
@@ -35,7 +39,10 @@ function onProductSelect(product: ProductSummary): void {
             </template>
           </p>
         </div>
-        <ProductSearchBar v-model="query" />
+        <div class="hidden md:flex items-center gap-1.5 text-[12px] text-muted font-mono">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500/80"></span>
+          In stock · ships in 24h
+        </div>
       </div>
 
       <p v-if="isLoading" class="text-center text-muted py-20">Loading products…</p>

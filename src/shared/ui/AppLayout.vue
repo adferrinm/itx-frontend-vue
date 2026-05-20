@@ -9,6 +9,9 @@ import AppFooter from './AppFooter.vue'
       <template v-if="$slots.breadcrumb" #breadcrumb>
         <slot name="breadcrumb" />
       </template>
+      <template v-if="$slots.search" #search>
+        <slot name="search" />
+      </template>
     </AppHeader>
     <main class="flex-1">
       <slot />

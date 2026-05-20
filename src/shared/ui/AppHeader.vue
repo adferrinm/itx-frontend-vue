@@ -20,7 +20,11 @@ const cartStore = useCartStore()
         <slot name="breadcrumb" />
       </nav>
 
-      <div class="ml-auto flex items-center">
+      <div v-if="$slots.search" class="ml-auto w-full max-w-xs hidden sm:block">
+        <slot name="search" />
+      </div>
+
+      <div :class="$slots.search ? 'sm:ml-0 ml-auto' : 'ml-auto'" class="flex items-center">
         <div
           class="inline-flex items-center gap-2 h-9 px-3 rounded-full border border-hair text-[13px]"
         >
@@ -39,6 +43,10 @@ const cartStore = useCartStore()
           <span class="font-medium tabular-nums">{{ cartStore.count }}</span>
         </div>
       </div>
+    </div>
+
+    <div v-if="$slots.search" class="sm:hidden px-5 pb-3">
+      <slot name="search" />
     </div>
   </header>
 </template>
