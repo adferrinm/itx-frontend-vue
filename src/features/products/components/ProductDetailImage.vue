@@ -3,7 +3,9 @@ defineProps<{ imgUrl: string; brand: string; model: string }>()
 </script>
 
 <template>
-  <div class="flex items-center justify-center rounded-lg border border-gray-200 p-6">
-    <img :src="imgUrl" :alt="`${brand} ${model}`" class="max-h-80 w-full object-contain" />
+  <div class="sticky top-24">
+    <div class="aspect-4/5 bg-surface border border-hair rounded-2xl overflow-hidden">
+      <img :src="imgUrl" :alt="`${brand} ${model}`" class="w-full h-full object-contain" />
+    </div>
   </div>
 </template>

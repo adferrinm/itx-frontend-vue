@@ -5,54 +5,30 @@ defineProps<{ product: ProductDetail }>()
 </script>
 
 <template>
-  <dl class="flex flex-col gap-3">
-    <div class="flex flex-col">
-      <dt class="text-xs font-semibold uppercase tracking-wide text-gray-500">Brand</dt>
-      <dd>{{ product.brand }}</dd>
-    </div>
-    <div class="flex flex-col">
-      <dt class="text-xs font-semibold uppercase tracking-wide text-gray-500">Model</dt>
-      <dd>{{ product.model }}</dd>
-    </div>
-    <div class="flex flex-col">
-      <dt class="text-xs font-semibold uppercase tracking-wide text-gray-500">Price</dt>
-      <dd>{{ product.price ? `${product.price} €` : 'Not available' }}</dd>
-    </div>
-    <div class="flex flex-col">
-      <dt class="text-xs font-semibold uppercase tracking-wide text-gray-500">CPU</dt>
-      <dd>{{ product.cpu }}</dd>
-    </div>
-    <div class="flex flex-col">
-      <dt class="text-xs font-semibold uppercase tracking-wide text-gray-500">RAM</dt>
-      <dd>{{ product.ram }}</dd>
-    </div>
-    <div class="flex flex-col">
-      <dt class="text-xs font-semibold uppercase tracking-wide text-gray-500">OS</dt>
-      <dd>{{ product.os }}</dd>
-    </div>
-    <div class="flex flex-col">
-      <dt class="text-xs font-semibold uppercase tracking-wide text-gray-500">Screen resolution</dt>
-      <dd>{{ product.displaySize }}</dd>
-    </div>
-    <div class="flex flex-col">
-      <dt class="text-xs font-semibold uppercase tracking-wide text-gray-500">Battery</dt>
-      <dd>{{ product.battery }}</dd>
-    </div>
-    <div class="flex flex-col">
-      <dt class="text-xs font-semibold uppercase tracking-wide text-gray-500">Primary camera</dt>
-      <dd>{{ product.primaryCamera.join(', ') }}</dd>
-    </div>
-    <div class="flex flex-col">
-      <dt class="text-xs font-semibold uppercase tracking-wide text-gray-500">Secondary camera</dt>
-      <dd>{{ product.secondaryCmera.join(', ') }}</dd>
-    </div>
-    <div class="flex flex-col">
-      <dt class="text-xs font-semibold uppercase tracking-wide text-gray-500">Dimensions</dt>
-      <dd>{{ product.dimentions }}</dd>
-    </div>
-    <div class="flex flex-col">
-      <dt class="text-xs font-semibold uppercase tracking-wide text-gray-500">Weight</dt>
-      <dd>{{ product.weight }} g</dd>
-    </div>
-  </dl>
+  <div class="border-t border-hair pt-6">
+    <p class="text-[11px] tracking-[0.14em] uppercase text-muted font-mono mb-5">Specifications</p>
+    <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-10">
+      <div
+        v-for="[label, value] in [
+          ['Brand', product.brand],
+          ['Model', product.model],
+          ['Price', product.price ? `${product.price} €` : 'Not available'],
+          ['CPU', product.cpu],
+          ['RAM', product.ram],
+          ['Operating system', product.os],
+          ['Screen resolution', product.displaySize],
+          ['Battery', product.battery],
+          ['Primary camera', product.primaryCamera.join(', ')],
+          ['Secondary camera', product.secondaryCmera.join(', ')],
+          ['Dimensions', product.dimentions],
+          ['Weight', `${product.weight} g`],
+        ]"
+        :key="label"
+        class="flex items-baseline justify-between gap-4 py-3 border-b border-hair text-[13.5px]"
+      >
+        <dt class="text-muted shrink-0">{{ label }}</dt>
+        <dd class="text-ink text-right">{{ value }}</dd>
+      </div>
+    </dl>
+  </div>
 </template>

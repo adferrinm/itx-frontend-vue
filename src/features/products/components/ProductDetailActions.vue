@@ -12,6 +12,32 @@ const selectedColorCode = ref<number | null>(null)
 const selectedStorageCode = ref<number | null>(null)
 const isAdding = ref(false)
 const addError = ref<string | null>(null)
+const added = ref(false)
+
+const COLOR_HEX: Record<string, string> = {
+  Black: '#0a0a0a',
+  White: '#f5f5f4',
+  Silver: '#d8d6d2',
+  Gold: '#c8a96e',
+  'Rose Gold': '#e8bfb0',
+  Red: '#c0392b',
+  Blue: '#2a3a6b',
+  Green: '#3a6b4a',
+  Yellow: '#e8c84a',
+  Purple: '#6a4a8a',
+  Pink: '#e8a0b0',
+  Orange: '#e87a30',
+  Graphite: '#3b3a36',
+  Champagne: '#e6d2b3',
+  Midnight: '#1a1d2b',
+  Starlight: '#ece5d6',
+  Coral: '#e07b6a',
+  Cyan: '#4ab8c8',
+}
+
+function colorHex(name: string): string {
+  return COLOR_HEX[name] ?? '#cccccc'
+}
 
 // Pre-select when only one option — exercise requirement
 watch(
@@ -39,6 +65,8 @@ async function onAddToCart(): Promise<void> {
     })
     // The mock API always returns count: 1 (stateless server) — increment locally on success
     cartStore.setCount(cartStore.count + 1)
+    added.value = true
+    setTimeout(() => (added.value = false), 1800)
   } catch (e) {
     addError.value = e instanceof Error ? e.message : 'Failed to add to cart'
   } finally {
@@ -48,39 +76,59 @@ async function onAddToCart(): Promise<void> {
 </script>
 
 <template>
-  <div class="flex flex-col gap-6">
-    <div class="flex flex-col gap-2">
-      <span class="text-sm font-semibold uppercase tracking-wide text-gray-500">Color</span>
+  <div class="flex flex-col gap-8">
+    <!-- Color -->
+    <div>
+      <div class="flex items-baseline justify-between mb-3">
+        <p class="text-[13px] font-medium">Color</p>
+        <p class="text-[12px] text-muted">
+          {{
+            product.options.colors.find((c) => c.code === selectedColorCode)?.name ??
+            'Choose a finish'
+          }}
+        </p>
+      </div>
       <div class="flex flex-wrap gap-2">
         <button
           v-for="color in product.options.colors"
           :key="color.code"
           :aria-pressed="selectedColorCode === color.code"
-          class="rounded-lg border px-3 py-1 text-sm transition-colors"
+          class="inline-flex items-center gap-2 h-10 pl-1.5 pr-3.5 rounded-full border transition"
           :class="
-            selectedColorCode === color.code
-              ? 'border-gray-800 bg-gray-800 text-white'
-              : 'border-gray-300 hover:border-gray-500'
+            selectedColorCode === color.code ? 'border-ink' : 'border-hair hover:border-ink/40'
           "
           @click="selectedColorCode = color.code"
         >
-          {{ color.name }}
+          <span
+            class="w-7 h-7 rounded-full border border-hair/60 shrink-0"
+            :style="{ background: colorHex(color.name) }"
+          />
+          <span class="text-[13px]">{{ color.name }}</span>
         </button>
       </div>
     </div>
 
-    <div class="flex flex-col gap-2">
-      <span class="text-sm font-semibold uppercase tracking-wide text-gray-500">Storage</span>
-      <div class="flex flex-wrap gap-2">
+    <!-- Storage -->
+    <div>
+      <div class="flex items-baseline justify-between mb-3">
+        <p class="text-[13px] font-medium">Storage</p>
+        <p class="text-[12px] text-muted">
+          {{
+            product.options.storages.find((s) => s.code === selectedStorageCode)?.name ??
+            'Choose capacity'
+          }}
+        </p>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
         <button
           v-for="storage in product.options.storages"
           :key="storage.code"
           :aria-pressed="selectedStorageCode === storage.code"
-          class="rounded-lg border px-3 py-1 text-sm transition-colors"
+          class="h-12 rounded-xl border text-[13px] font-medium transition"
           :class="
             selectedStorageCode === storage.code
-              ? 'border-gray-800 bg-gray-800 text-white'
-              : 'border-gray-300 hover:border-gray-500'
+              ? 'border-ink bg-ink text-white'
+              : 'border-hair hover:border-ink/40'
           "
           @click="selectedStorageCode = storage.code"
         >
@@ -91,12 +139,23 @@ async function onAddToCart(): Promise<void> {
 
     <p v-if="addError" class="text-sm text-red-500">{{ addError }}</p>
 
+    <!-- Add to cart -->
     <button
       :disabled="!canAdd || isAdding"
-      class="rounded-lg bg-gray-800 px-6 py-3 text-sm font-semibold text-white transition-opacity disabled:opacity-40"
+      class="h-12 rounded-full text-[14px] font-medium transition"
+      :class="
+        canAdd ? 'bg-ink text-white hover:bg-ink-2' : 'bg-hair-2 text-faint cursor-not-allowed'
+      "
       @click="onAddToCart"
     >
-      {{ isAdding ? 'Adding...' : 'Add to cart' }}
+      <span v-if="added" class="inline-flex items-center gap-2">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 6L9 17l-5-5" />
+        </svg>
+        Added
+      </span>
+      <span v-else-if="isAdding">Adding…</span>
+      <span v-else>{{ canAdd ? 'Add to cart' : 'Select color &amp; storage' }}</span>
     </button>
   </div>
 </template>
