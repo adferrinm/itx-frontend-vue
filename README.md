@@ -5,19 +5,19 @@ Built with Vue 3 and TypeScript, consuming the ITX frontend test API.
 
 ## Tech Stack
 
-| Concern | Choice | Reason |
-| --- | --- | --- |
-| Build tool | Vite | Fastest DX, modern default for Vue 3 |
-| Framework | Vue 3 + `<script setup>` | Author's strongest stack; better TS inference than Options API |
-| Language | TypeScript (strict) | Catches bugs early; defensible at every line |
-| Routing | Vue Router 4 | Official; HTML5 history mode for clean SPA URLs |
-| State | Pinia | Official Vue store; TS-first, simpler than Vuex |
-| Styling | Tailwind CSS v4 | Utility-first; consistent spacing without CSS file sprawl |
-| HTTP | Native fetch (typed wrapper) | Zero dependency cost; sufficient for this scope |
-| Testing | Vitest + @vue/test-utils | Native Vite integration; fast feedback loop |
-| Lint | ESLint (flat config) + Prettier | Modern config; no lint/format conflicts |
-| Container | Docker (multi-stage) | nginx serves the built SPA |
-| CI | GitHub Actions | Lint + test + build on every push and PR |
+| Concern    | Choice                          | Reason                                                         |
+| ---------- | ------------------------------- | -------------------------------------------------------------- |
+| Build tool | Vite                            | Fastest DX, modern default for Vue 3                           |
+| Framework  | Vue 3 + `<script setup>`        | Author's strongest stack; better TS inference than Options API |
+| Language   | TypeScript (strict)             | Catches bugs early; defensible at every line                   |
+| Routing    | Vue Router 4                    | Official; HTML5 history mode for clean SPA URLs                |
+| State      | Pinia                           | Official Vue store; TS-first, simpler than Vuex                |
+| Styling    | Tailwind CSS v4                 | Utility-first; consistent spacing without CSS file sprawl      |
+| HTTP       | Native fetch (typed wrapper)    | Zero dependency cost; sufficient for this scope                |
+| Testing    | Vitest + @vue/test-utils        | Native Vite integration; fast feedback loop                    |
+| Lint       | ESLint (flat config) + Prettier | Modern config; no lint/format conflicts                        |
+| Container  | Docker (multi-stage)            | nginx serves the built SPA                                     |
+| CI         | GitHub Actions                  | Lint + test + build on every push and PR                       |
 
 ## Getting Started
 
@@ -45,11 +45,11 @@ npm run lint     # lint and format check
 
 Base URL: `https://itx-frontend-test.onrender.com`
 
-| Method | Path | Description |
-| --- | --- | --- |
-| GET | `/api/product` | List all products |
-| GET | `/api/product/:id` | Get product detail |
-| POST | `/api/cart` | Add product to cart |
+| Method | Path               | Description         |
+| ------ | ------------------ | ------------------- |
+| GET    | `/api/product`     | List all products   |
+| GET    | `/api/product/:id` | Get product detail  |
+| POST   | `/api/cart`        | Add product to cart |
 
 All GET responses are cached client-side for 1 hour via `sessionStorage`.
 The cart count returned by `POST /api/cart` is persisted in `localStorage`.
