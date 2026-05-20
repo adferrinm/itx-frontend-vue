@@ -3,6 +3,8 @@
 A single-page application for browsing and purchasing mobile devices.
 Built with Vue 3 and TypeScript, consuming the ITX frontend test API.
 
+**Live demo:** [itx-frontend-vue.vercel.app](https://itx-frontend-vue.vercel.app)
+
 ## Tech Stack
 
 | Concern    | Choice                          | Reason                                                         |
